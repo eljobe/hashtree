@@ -1,9 +1,20 @@
 package hashtree
 
-import "fmt"
+import (
+	"fmt"
+	"unsafe"
+)
 
-//go:noescape
-func HashtreeHash(output *byte, input *byte, count uint64)
+/*
+   #cgo CFLAGS: -I${SRCDIR}/src
+   #cgo LDFLAGS: -L${SRCDIR}/build/lib -lhashtree
+   #include "src/hashtree.h"
+*/
+import "C"
+
+func HashtreeHash(output *byte, input *byte, count uint64) {
+	C.hashtree_hash((*C.uchar)(unsafe.Pointer(output)), (*C.uchar)(unsafe.Pointer(input)), C.uint64_t(count))
+}
 
 func Hash(digests [][32]byte, chunks [][32]byte) error {
 	if len(chunks) == 0 {
