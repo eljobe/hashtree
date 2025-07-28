@@ -2,7 +2,6 @@
 load("@gazelle//:def.bzl", "gazelle")
 load("@rules_go//go:def.bzl", "TOOLS_NOGO", "nogo", "go_library", "go_test", "go_source")
 
-# gazelle:prefix github.com/OffchainLabs/bold
 gazelle(name = "gazelle")
 
 nogo(
